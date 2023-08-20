@@ -12,6 +12,14 @@ For a `TimerTrigger` to work, you provide a schedule in the form of a [cron expr
 
 Some resources to follow:
 
-# Azure Functions Python developer guide: https://learn.microsoft.com/en-us/azure/azure-functions/functions-reference-python?tabs=asgi%2Capplication-level&pivots=python-mode-configuration
+# Development
 
-# timer-triggered-azure-functions with keyvault to add configuration values: https://www.bizstream.com/blog/timer-triggered-azure-functions-in-c-with-net-6/
+## Azure Functions Python developer guide: https://learn.microsoft.com/en-us/azure/azure-functions/functions-reference-python?tabs=asgi%2Capplication-level&pivots=python-mode-configuration
+
+## timer-triggered-azure-functions with keyvault to add configuration values: https://www.bizstream.com/blog/timer-triggered-azure-functions-in-c-with-net-6/
+
+## https://beetechnical.com/cloud-computing/http-trigger-azure-function/#google_vignette
+
+# Testing
+
+## For testing locally need to install Azurite extension and configure the extension setting for VS Coe: https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azurite?tabs=visual-studio-code
