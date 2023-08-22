@@ -14,12 +14,25 @@ Some resources to follow:
 
 # Development
 
-## Azure Functions Python developer guide: https://learn.microsoft.com/en-us/azure/azure-functions/functions-reference-python?tabs=asgi%2Capplication-level&pivots=python-mode-configuration
+## Selenium and Beautifulsoup and Python
 
-## timer-triggered-azure-functions with keyvault to add configuration values: https://www.bizstream.com/blog/timer-triggered-azure-functions-in-c-with-net-6/
+https://medium.com/ymedialabs-innovation/web-scraping-using-beautiful-soup-and-selenium-for-dynamic-page-2f8ad15efe25
 
-## https://beetechnical.com/cloud-computing/http-trigger-azure-function/#google_vignette
+## Azure Functions Python developer guide:
+
+https://learn.microsoft.com/en-us/azure/azure-functions/functions-reference-python?tabs=asgi%2Capplication-level&pivots=python-mode-configuration
+
+## timer-triggered-azure-functions with keyvault to add configuration values:
+
+https://www.bizstream.com/blog/timer-triggered-azure-functions-in-c-with-net-6/
+https://beetechnical.com/cloud-computing/http-trigger-azure-function/#google_vignette
 
 # Testing
 
-## For testing locally need to install Azurite extension and configure the extension setting for VS Coe: https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azurite?tabs=visual-studio-code
+## For testing locally need to install Azurite extension and configure the extension setting for VS Code:
+
+https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azurite?tabs=visual-studio-code
+
+## For issue:
+
+https://stackoverflow.com/questions/70764836/timetrigger-exception-could-not-create-blobcontainerclient-for-schedulemonitor
