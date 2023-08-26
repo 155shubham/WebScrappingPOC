@@ -40,3 +40,7 @@ https://stackoverflow.com/questions/70764836/timetrigger-exception-could-not-cre
 ## Try this sample to create loop in selenium
 
 https://stackoverflow.com/questions/71480545/how-to-stop-the-selenium-webdriver-after-reaching-the-last-page-while-scraping-t
+
+## azure function and service bus queue
+
+https://learn.microsoft.com/en-us/azure/azure-functions/functions-bindings-service-bus-output?tabs=python-v1%2Cin-process%2Cextensionv5&pivots=programming-language-python
