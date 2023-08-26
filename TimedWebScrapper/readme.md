@@ -36,3 +36,7 @@ https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azurite?tabs=
 ## For issue:
 
 https://stackoverflow.com/questions/70764836/timetrigger-exception-could-not-create-blobcontainerclient-for-schedulemonitor
+
+## Try this sample to create loop in selenium
+
+https://stackoverflow.com/questions/71480545/how-to-stop-the-selenium-webdriver-after-reaching-the-last-page-while-scraping-t
