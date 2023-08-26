@@ -1,89 +1,70 @@
-import selenium
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
-
-import time
 from bs4 import BeautifulSoup
 
+import time
 import json
 
 
 def scrape_certificates_data():
     """Scrape certificates data from the ISCC website."""
 
+    # Add the headless options so that it will run in background when Azure function will execute this script
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     # chrome_options.add_argument("--no-sandbox")
     # chrome_options.add_argument("--disable-dev-shm-usage")
     driver = webdriver.Chrome(options=chrome_options)
 
+    # Configurations --- this has to be brought from key vault
+    website = {
+        "ISCC": "https://www.iscc-system.org/certification/certificate-database/all-certificates/"}
+
     # Navigate to the website.
-    driver.get(
-        "https://www.iscc-system.org/certification/certificate-database/all-certificates/")
+    driver.get(website["ISCC"])
 
     time.sleep(10)
-
-    # dropdown = Select(driver.find_element(
-    #     By.XPATH("//*[@id='table_1_length']/label/div/button")))
-    # dropdown.select_by_value(100)
-
-    # nextpage_no_xpath = "//a[@class='paginate_button '][@data-dt-idx='4']"
-    nextpage_no_xpath = "//*[@id='table_1_paginate']/span/a[4]"
-
-    nextpage_no_element = driver.find_element(
-        by=By.XPATH, value=nextpage_no_xpath)
-
-    if nextpage_no_element:
-        nextpage_no_element.click()
-    else:
-        print("Next Page not found")
-
-    time.sleep(10)
-
-    soup = BeautifulSoup(driver.page_source, "html.parser")
-    table = soup.find("table", {"id": "table_1"})
-
-    print(table)
 
     # Create a list to store the certificates data.
     certificates_data = []
-    if table is not None:
-        for row in table.find_all("tr"):
-            cols = row.find_all("td")
-            certificates_data.append([col.text for col in cols])
-    else:
-        print("Table not found on this page")
+    page_no = 2
+    dynamic_page_no = 2
+    while True:
+        soup = BeautifulSoup(driver.page_source, "html.parser")
+        table = soup.find("table", {"id": "table_1"})
 
-    # # Loop through all the pages.
-    # while True:
-    #     # Find the tables on the page.
-    #     table = driver.find_elements(by=By.ID, value="table_1")
+        # print(table)
 
-    #     soup = BeautifulSoup(table)
+        if table is not None:
+            for row in table.find_all("tr"):
+                cols = row.find_all("td")
+                certificates_data.append([col.text for col in cols])
+        else:
+            print(
+                f"Certificates Table not found on this website {website['ISCC']}")
+            break
 
-    #     # Scrape the data from the tables.
-    #     if table is not None:
-    #         certificate_data = {}
-    #         for row in table.find_all("tr"):
-    #             cols = row.find_all("td")
-    #             for col in cols:
-    #                 certificate_data[col.get("data-label")] = col.text
+        nextpage_no_xpath = f"//*[@id='table_1_paginate']/span/a[{dynamic_page_no}]"
+        nextpage_no_element = driver.find_element(
+            by=By.XPATH, value=nextpage_no_xpath)
 
-    #         certificates_data.append(certificate_data)
+        if nextpage_no_element is not None:
+            nextpage_no_element.click()
+            time.sleep(1)
+        else:
+            print(f"Page No {page_no} in table table_1 not present")
+            break
 
-    #         # Find the button to go to the next page.
-    #         next_page_button = driver.find_element(by=By.XPATH,
-    #                                                value="//a[@class='paginate_button '][@data-dt-idx='4']")
+        if page_no >= 5:
+            dynamic_page_no = 4
+        else:
+            dynamic_page_no += 1
 
-    #         # Click the button to go to the next page.
-    #         if next_page_button:
-    #             next_page_button.click()
-    #         else:
-    #             break
-    #     else:
-    #         print("Table not found")
+        page_no += 1
+
+        if page_no == 60:
+            break
 
     # Close the browser.
     driver.close()
@@ -93,10 +74,6 @@ def scrape_certificates_data():
 
     with open("iscc_certificates.json", "w") as f:
         f.write(json_data)
-
-    # # Save the certificates data to a JSON file.
-    # with open("certificates_data.json", "w") as f:
-    #     json.dump(certificates_data, f)
 
 
 if __name__ == "__main__":
